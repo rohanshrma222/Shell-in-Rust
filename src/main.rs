@@ -4,18 +4,19 @@ use std::{
 };
 fn main() {
     loop {
-        print!(">");
+        print!("> ");
         stdout().flush().unwrap();
 
         let mut input = String::new();
         stdin().read_line(&mut input).unwrap();
 
-        let command = input.trim();
+        let mut parts = input.trim().split_whitespace();
+        let command = parts.next().unwrap();
+        let args = parts;
 
         let mut child = Command::new(command)
-        .args(&["/C", command]).spawn().unwrap();
+        .args(args).spawn().unwrap();
 
         child.wait().unwrap();
-        print!("hi")
     }
 }
